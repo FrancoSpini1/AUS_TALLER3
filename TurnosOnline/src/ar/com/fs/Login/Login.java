@@ -3,6 +3,8 @@ package ar.com.fs.Login;
 import java.util.*;
 import java.util.Map.Entry;
 import java.io.*;
+
+import ar.com.fs.Turno.Turno;
 import ar.com.fs.Usuario.Usuario;
 
 public class Login {
@@ -18,15 +20,24 @@ public class Login {
 		Usuario us=new Usuario();
 		do {
 			System.out.println("Ingrese su nombre de usuario >>>");
-			NombreDeUsuario = k.next();
+			NombreDeUsuario = k.nextLine();
 			System.out.println("\n");
 			System.out.println("Ingrese su contraseña >>>");
-			Contraseña = k.next();
+			Contraseña = k.nextLine();
 			/*
 			 * algoritmo que busque si tanto usuario como contraseña se encuentra en el archivo 
 			 * "usuarios", pues resulta que si no los encuentra es porque
 			 * o no está o ingresó mal sus datos :v (ahi tiro un break salvaje). Y en el caso de que esté que vaya al portal 
 			 * de turnos (otro quilombito mas);
+			 * 
+			 * solucionado aca abajo!
+			 *  |  |			|  |			|  |
+			 *  |  |			|  |			|  |
+			 *  |  |			|  |			|  |
+			 *  |  |			|  |			|  |
+			 * \    /		   \    /		   \    /
+			 *  \  /			\  /			\  /
+			 *   \/				 \/				 \/
 		     */
 			
 			us.getUsuario();	//tengo todos los usuarios del archivo 'usuarios.txt'(teoricamente)
@@ -37,12 +48,14 @@ public class Login {
 						 * urra! conseguiste entrar al portal de turnos!!!
 						 * crear objeto  instacia Turno t y lamar metodo sacarTurno();
 						 * */
+						Turno t=new Turno();
+						t.SacarTurno();
 					}else {
-						System.out.println("no pudiste pa,hacelo de vuelta\n");
+						System.out.println("no pudiste pa,fijate como hacés ahora para entrar jaajja\n");
 					}
 				}
 			} catch (IOException e) {
-				// TODO: handle exception
+				System.out.println("No se pudo leer el archivo de usuarios. "+e.getMessage());
 			}
 			System.out.println("presione '0' >>>");		//esto es para cerrar el do-while
 			i=k.nextInt();

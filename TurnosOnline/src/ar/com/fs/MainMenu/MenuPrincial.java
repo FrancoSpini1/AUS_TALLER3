@@ -1,6 +1,7 @@
 package ar.com.fs.MainMenu;
 import java.util.Scanner;
-
+import ar.com.fs.Login.*;
+import ar.com.fs.Usuario.Usuario;
 public class MenuPrincial {
 	public static void main(String[] args) {
 		System.out.println("############## MENU PRINCIPAL ##############");
@@ -15,15 +16,15 @@ public class MenuPrincial {
 			i= k.nextInt();
 			if(i == 1) {
 				System.out.println("go to sign in ");
-				/*
-				 * creo un objeto instancia login llamando l que llame al metodo 'login' y de ahi pueda ingresar al sitio
-				 * 
-				 * */
+				Login l = new Login();
+				l.login();
 			}else if(i == 2) {
 				System.out.println("Create an account");
 				/*
 				 * creo un objeto instancia Usuario llamado u que llame metodo "crearUsuario" asi graba todo en la puchaina
 				 * */
+				Usuario u=new Usuario();
+				u.CrearUsuario();
 			}else if(i==3) {
 				System.out.println("adios!");
 				break;

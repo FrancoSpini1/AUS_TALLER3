@@ -41,15 +41,15 @@ public class Usuario {
 	}
 	
 	public void CrearUsuario() {
-		
+		this.GraboUsuario();
 	}
 	
 	private void CargoMap() {			//lo vi de chatGPT, perdon no soy un santo :v
 		Scanner k=new Scanner(System.in);
 		System.out.println("ingrese nombre de usuario:");
-		String NombreUsuario=k.next();
+		String NombreUsuario=k.nextLine();
 		System.out.println("\ningrese contraseña:");
-		String contraseña= k.next();
+		String contraseña= k.nextLine();
 		this.usuario.put(NombreUsuario, contraseña);		//aca guardó un usuario y password en map
 		System.out.println(this.usuario.size());
 	}
@@ -77,6 +77,7 @@ public class Usuario {
 		System.out.println("\ningrese telefono:");
 		this.telefono=k.nextInt();		
 	}
+	
 	private void GraboDatos() {
 		try(BufferedWriter w=new BufferedWriter (new FileWriter(DatosArchivo))) {
 			this.GraboMap();
