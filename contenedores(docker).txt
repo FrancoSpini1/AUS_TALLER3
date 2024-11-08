@@ -1,0 +1,145 @@
+CONTENEDORES ->unidades ejecutables de software, son la forma mas comunes de 
+compartir o distribuir software (a fines de probar una app, te paso una lista 
+de requisitos como librerias, comandos, etc los cuales tenes que instanciar 
+previamente para que funke la apk y es muy tedioso)entidad activa de ejecucion
+
+imagen -> que es lo que ejecutara el contenedor
+
+INFRAESTRUCTURA DE UN CONTENEDOR:
+
+lo mas parecido a un container es la vm (maquina virtual) pero pesa mucho
+y puede generar problemas, el contenedor vino para facilitar lo que la 
+vm hacia para probar apps
+
+
+	   apps					  apps
+ 	 bins/libs				 bin/lib
+
+guestOS(ubuntu,mint,win10,etc)          container engine(supongo que docker)
+
+hypervisor(virtual box por ej) 		   S.O(ubuntu,mint,win10,etc)
+
+infrastructure(hardware)		infrastructure(hardware)
+       	   VM					containers
+
+
+lo bueno del contenedor es que posee un unico so, la vm puede tener varios
+el cont es mas chico y si el s.o se cae alpiste, pero puedo usar ej una vm
+con ubuntu y en esa levantar un cont.
+
+CONTAINER ENGINE -> son souciones de sw que permiten el despliegue de contenedores
+sobre el kernel del s.o correspondiente (doker es el mas conosidito)
+
+matriz del infierno -> cuando tengo varias apps y c/u de ellas requieren varias 
+libs , y mantener varias versiones de una lib con un mismo s.o es muy jodido
+. con contenedores se soluciona pues contiene la app con una version de lib 
+definida todo dentro de un mismo sist operativo.
+
+
+SElinux:modulo que indica qué app haga qué cosa
+
+QUE ES UNA IMAGEN? -> una imagen docker es info de la app que quiero ejecutar
+sea una bdd, o automatization tool, etc. es como una plantilla la cual 1  o +
+contenedores pueden ejecutarse basados en esa imagen
+
+son contenedores 'deshidratados' , una imagen puede tener diferentes versiones
+las cuales se diferencian mediante etiquetas
+
+REGISTRY -> sistema de almecenamiento y distribuscion de imagenes, en la cual
+estan las documentaciones correspondientes de c/u de las imagenes.
+
+dockerhub -> en un lugar lleno de imagenes para 'pullear' (desde mi punto de 
+vista posee un funcionamiento muy similar a github). tonces si de la terminal
+pongo >docker pull imageName:nºversion ENTER, por defecto mi pc va para dockerhub
+y busca la imagen que coincida con la etiqueta que escribi en el comando y la 
+descarga
+
+
+IMAGENES INTERESANTES:
+ALPINE ->linux reducido
+NGINX ->server web nginx
+HTTPD->server web apache
+UBUNTU-> ubuntu 
+REDIS->base de datos redis
+MONGO->bdd mongodb
+MYSQL-> bdd mysql
+POSTGRES->bdd postgres
+NODE-> node.js
+REGISTRY ->registro de imagenes in premise
+.
+.
+.
+
+por comandos puedo  buscar imagenes > docker search debian. y ahi busca todas
+las imagenes con un nombre simil a debian
+
+o >> docker search --limit debian (salen las mejores 5)
+
+el recomienda descargar 'cheat sheet' un machete con todos los comandos
+
+INSTALAR DOCKER ENGINE EN UBUNTU 
+https://docs.docker.com/engine/install/ubuntu/
+
+una vez instalado comandar
+
+>docker version ENTER
+
+ y listo!!
+
+(despues veo como hacer pa que no inicie apenas se prenda la compu)
+--------------------------------
+
+
+diego explica como un cliente serivor se conecta a un mismo equipo y como
+2 imagenes 'alimentan' muchos contenedores(funcionamiento tipico)
+
+explica el funcionamiento de los pull y push de docker(dijo que es simil a git)
+asi que nada es similar, tenia razon yo papa
+
+>docker run hello-world -> si ejecuto este comando sin antes hacer el pull del 
+registry (dockerhub) lo que va a hacer es buscarla, bajarla y ejecutarla.
+
+sale por pantalla diciendo que anduvo bien la imagen bajada, y te tira unos
+comandos que podes probar ejecutar
+
+
+docker ps indica los contenedores que estan corriendo
+
+datazo: ps -ef en ubuntu indica los procesos que se estan ejecutanto en tiempo 
+real
+
+si corro una imagen qque descargue(ej>docker run ubuntu:20.10bash),cambia el prompt
+(entiendo por prompt al nombresito de usuario que aparece en la terminal en la izq,
+dicho prompt tengo por entendido es el del contenedor que ejecuta la imagen que
+descargue)
+
+mas alla de eso, hay cosas que dicha imagen no puede hacer (usar vim, vi,lsb,edit)
+es casi inutil aunque pese poco, para que me sirve?  a esa imagen la podes 
+configurar a tu gusto, y que posea las cossas que vos quieras (siempre que la 
+imagen te lo permita calculo) dichas extensiones podes agregarlas con este comando
+>apt install ___ , asi es como si tuvieras un so personalizado para tu app, esta
+buenisimo (apenas apagao el contenedor, lo que descargue en esa imagen se pierde)
+
+
+para salir del contenedor en el que estoy situado > /# exit
+
+>docker run -d --name AUS24 ubuntu:20.10 bash ->   ejecuta un contenedor y le 
+pongo nombre para facilitar su uso (nombre = AUS24). tonces si quiero frenar su
+uso escribo desde la 'terminal principal'(donde escribi el  run) docker stop AUS24
+y ahi ya frena
+
+y siguio probando mas comandos. (comandos que estan en la cheat_sheet)
+
+--------------------------------------------------------
+
+COMO ELIMINAR UNA IMAGEN -> docker rmi ___ (si hay un conteiner que hace ref a dicha 
+imagen no se borra, tonces rm _contID_ y despues docker rmi _imgname_)
+
+DOCKERFILE -> archivo con serie de comandos  los cuales se ejecutan para realizar
+cierta accion que yo quiero que suceda una vez corra dicho file(como un script)
+
+>docker build --tag 'nametag'(pilas aca debemos estar en el directorio del 
+dokerfile)
+> ejecutado eso VA A EJECUTAR LOS COMANDOS QUE ESTEN DENTRO DEL ARCHIVO Y VA 
+A DESCARGAR Y CONFIGURAR TODO LO QUE TENGA QUE CONFIGURAR
+(quede en 1:07:00)

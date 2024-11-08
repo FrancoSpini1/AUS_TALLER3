@@ -1,0 +1,69 @@
+entrada y salida de java
+
+API conjunto de reglas, protocolos y herramientas que permiten a las aplicaciones informáticas comunicarse entre sí para intercambiar datos, características y funcionalidades
+
+IO api -> es la que explica el profe (una parte en realidad porque es muy extensa)
+
+I/O trabajan con bytes o chars
+	si es con bytes =>el nombre de la clase termina con stream
+		InputStream
+		OutputStream
+	si es char, termina con writer o reader
+
+si son inputstream o reader que metodos tendra?? -> read() (leer)
+
+FileReader -> clase que me permite leer los caracteres de un archivo
+OutputStream -> clase que me permite escribir bytes en un archivo 
+BufferedReader ->clase que me permite pasarle al constructor como argumento un FileReader y podes ir  encadenando los flujos de entrada y salida, los bufferedreader lo que hace es una tarea similar a FileReader pero en lugar de leer a un char lee 8kb de chars
+
+InputStreamReader -> clase que me permite leer bytes y transformarlos a chars
+
+ByteArrayInputStream -> lee a nivel arreglo de bytes
+
+stream -> secuencia de bytes que s e van 'consumiendo?'  uno tras otro, 
+DataOutputStream -> me permite escribir datos primitivos en un arhivo
+
+------------------------------------------------------------------
+
+ duda!! que diferencia hay en un FileReader y un File??? -> File: clase que es puntero a archivos
+
+ si uso file debe estar en un try-catch
+
+ si haces esto
+ FileReader fr = new FileReader("coco.txt"); y no pasas ruta exacta lo que va a hacer es buscar en el raiz del proyecto Java
+
+ HAY QUE USAR ESTA BARRITA '/' no \\ ni \ ni nada, a java no le interesa el tipo de barrita, pues la app se ejecuta en la maquina virtual
+
+
+
+ si pones en terminal linux man ascii sale una tablita con comandos ascii
+con FileWriter no importa si no existe el archivo, lo crea y a la mierda
+
+
+con BufferedInput/OutputStream lee o copia 8132 bytes en lugar de a 1,(puede leer mas si se lo indicas)
+
+new BufferedInputStream("sdgfsd",11231) ->ahi lee de a 11kb(recomendable pasarle de arg numero multipllo del bloque de pasaje de dato del s.o)
+
+
+BufferedReader y Writer existe.
+(las 2 explicaciones de abajo son referencia de copiaBytesWithuffered)
+si en lugar de usar un buffered hacer un arreglo de bytes tipo byte [] buffer=new byte[4096]
+y fr .read(buffer) es mas rapido, por que? porque al laburar con Buffered lo que hacer es traer a memoria 8kb de datos, pero no significa que los uses todo junto, en cambio con byte[]si pasa, agarras los 4096 bytes y los pasas de golpe con el read() reduciendo radicalmente el tiempo de ejecucion (la responsabilidad cae  en la cant de iteraciones del while())
+
+si pongo new byte[16451], esto copia de mas , porque?  el buffer debe ser multiplo entero del tamaño del archivo, porque sino la ultima lectura que yo hago voy a leer menos, pero voy a escribir todo el buffer, aconsejable, guardar cantidad que pudo leer ,para que en la ultima vuelta de while guarde lo que falta, no otros 16451. y pasarlos mediante fw.write(buffer,0,cant);
+
+
+despues hablo del try-catch (with resources) para poder hacer eso la clase debe ser  de tipo Closeable es poner try(____){ghafg}catch
+esto te hacer  poner los close
+
+si dicho try with resourses no se pueda usar por x motivo, dijo que se usa un try finally y otro try catch (separados, no anidados) uno tratas los Files y con los otros los errores
+
+---------------------------------------------------------------------------------
+
+DataOutpueStream -> escribe en un archivo cualquier valor tipo primitivo
+
+es un flujo encadenable, necesita saber a donde lo mando(a red, un archivo, etc). por encadenable se refiere a esto
+
+DataOutputStream dos= new DataOutputStream(new FileOutputStream("mondongo.dat")) ;
+
+en el caso output (write) debo indicar que es lo que voy a guardar (writeBool,writeInt,wirteFloat,writeUTF, y muchos mas writes);
