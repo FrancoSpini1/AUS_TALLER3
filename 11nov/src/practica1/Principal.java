@@ -9,7 +9,7 @@ public class Principal {
 		Persona p1=new Persona("Franc spini",24,44333445);
 		int[] puchaino= new int[8];
 		for (int i = 0; i < puchaino.length; i++) {
-			puchaino[i]=(int)Math.random()*10;
+			puchaino[i]=(int)(Math.random()*10);
 		}
 		Alumno a1 = new Alumno("Franco spini",24,44333553,2343,puchaino);
 		
